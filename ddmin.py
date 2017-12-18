@@ -1,16 +1,7 @@
 import random
 import string
 
-#random.seed(0)
-def test(s):
-    print("%s %d" % (s, len(s)))
-    return set('()') <= set(s)
-
 def complement(s, i, l): return s[:i] + s[i + l:]
-
-def fuzzer(): return ''.join(random.choices(string.digits +
-                                            string.ascii_letters +
-                                            string.punctuation, k=1024))
 
 def some_complement_is_failing(s, npartitions, testfn):
     subset_length = len(s) // npartitions
@@ -35,7 +26,15 @@ def ddmin(s, fn):
         npartitions = n1
     return s
 
+#random.seed(0)
+def test(s):
+    print("%s %d" % (s, len(s)))
+    return set('()') <= set(s)
+
+def fuzzer(): return ''.join(random.choices(string.digits +
+                                            string.ascii_letters +
+                                            string.punctuation, k=1024))
+
 mystr = fuzzer()
 minimized = ddmin(mystr, test)
 print("%s => %s" % (mystr, minimized))
-
